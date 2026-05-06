@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoJustice AI NEXUS — Report Cybercrime</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1a2a4a;
+      --saffron: #FF9933;
+      --green: #138808;
+      --blue: #1565c0;
+      --blue-light: #e8f0fe;
+      --red: #c0392b;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-900: #0f172a;
+      --success: #16a34a;
+      --warning: #d97706;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      min-height: 100vh;
+    }
+
+    /* ─── Tricolor Top Bar ───────────────────────────────────────── */
+    .tricolor-bar {
+      height: 6px;
+      background: linear-gradient(to right, var(--saffron) 33%, white 33%, white 67%, var(--green) 67%);
+    }
+
+    /* ─── Header ──────────────────────────────────────────────────── */
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .header-logo {
+      width: 48px; height: 48px;
+      background: var(--saffron);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 700; color: var(--navy);
+    }
+
+    .header-text h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+    .header-text p  { font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+
+    .header-nav a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: all 0.2s;
+    }
+    .header-nav a:hover { background: rgba(255,255,255,0.1); color: white; }
+
+    /* ─── Hero Banner ─────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #2d4a7a 100%);
+      color: white;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,153,51,0.2);
+      border: 1px solid var(--saffron);
+      color: var(--saffron);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h2 { font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+    .hero p { font-size: 16px; color: rgba(255,255,255,0.75); max-width: 560px; margin: 0 auto 24px; line-height: 1.6; }
+
+    .hero-features {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+    }
+    .hero-feature .icon { font-size: 18px; }
+
+    /* ─── Main Content ─────────────────────────────────────────────── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 16px;
+    }
+
+    /* ─── Step Progress ────────────────────────────────────────────── */
+    .step-progress {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 32px;
+      gap: 0;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .step-circle {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      color: var(--gray-400);
+      font-weight: 600;
+      font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step.active .step-circle  { background: var(--blue);    color: white; }
+    .step.done   .step-circle  { background: var(--success);  color: white; }
+
+    .step-label { font-size: 11px; color: var(--gray-400); font-weight: 500; text-align: center; max-width: 80px; }
+    .step.active .step-label { color: var(--blue); font-weight: 600; }
+    .step.done   .step-label { color: var(--success); }
+
+    .step-line {
+      flex: 1;
+      height: 2px;
+      background: var(--gray-200);
+      max-width: 80px;
+      margin-bottom: 20px;
+      transition: background 0.3s;
+    }
+    .step-line.done { background: var(--success); }
+
+    /* ─── Cards ────────────────────────────────────────────────────── */
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .card-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--blue-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+
+    .card-title h3 { font-size: 16px; font-weight: 600; }
+    .card-title p  { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+
+    /* ─── Form Elements ─────────────────────────────────────────────── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-grid.single { grid-template-columns: 1fr; }
+
+    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+    label .required { color: var(--red); margin-left: 2px; }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--gray-900);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: white;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(21,101,192,0.1);
+    }
+    textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+
+    .input-hint {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 2px;
+    }
+
+    /* ─── File Upload Drop Zone ─────────────────────────────────────── */
+    .dropzone {
+      border: 2px dashed var(--gray-200);
+      border-radius: 10px;
+      padding: 36px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--gray-50);
+      position: relative;
+    }
+    .dropzone:hover, .dropzone.dragover {
+      border-color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .dropzone input[type="file"] {
+      position: absolute; inset: 0;
+      opacity: 0; cursor: pointer;
+      width: 100%; height: 100%;
+    }
+
+    .dropzone-icon { font-size: 36px; margin-bottom: 10px; }
+    .dropzone h4 { font-size: 15px; font-weight: 600; color: var(--gray-900); }
+    .dropzone p  { font-size: 12px; color: var(--gray-400); margin-top: 4px; }
+
+    .file-list { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .file-item {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--blue-light);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .file-item .file-icon { font-size: 16px; }
+    .file-item .file-name { flex: 1; font-weight: 500; }
+    .file-item .file-size { color: var(--gray-400); font-size: 11px; }
+    .file-remove { cursor: pointer; color: var(--red); font-size: 16px; }
+
+    /* ─── Buttons ───────────────────────────────────────────────────── */
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+    }
+    .btn-primary:hover { background: #0d47a1; }
+    .btn-primary:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
+
+    .btn-secondary {
+      background: var(--gray-100);
+      color: var(--gray-900);
+    }
+    .btn-secondary:hover { background: var(--gray-200); }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-full { width: 100%; }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    /* ─── Info Box ──────────────────────────────────────────────────── */
+    .info-box {
+      background: var(--blue-light);
+      border-left: 4px solid var(--blue);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+    .info-box p { font-size: 13px; color: var(--navy); line-height: 1.5; }
+
+    .warning-box {
+      background: #fff7ed;
+      border-left: 4px solid var(--warning);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+    .warning-box p { font-size: 13px; color: #92400e; line-height: 1.5; }
+
+    /* ─── Result / Success State ────────────────────────────────────── */
+    #result-section { display: none; }
+
+    .result-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .result-header {
+      padding: 24px;
+      color: white;
+      text-align: center;
+    }
+    .result-header.high    { background: linear-gradient(135deg, #c0392b, #e74c3c); }
+    .result-header.medium  { background: linear-gradient(135deg, #d97706, #f59e0b); }
+    .result-header.low     { background: linear-gradient(135deg, #16a34a, #22c55e); }
+    .result-header.pending { background: linear-gradient(135deg, var(--blue), #2196F3); }
+
+    .result-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .result-case-number {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    .result-body { padding: 24px; }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .result-field label { font-size: 11px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; }
+    .result-field .value { font-size: 15px; font-weight: 600; margin-top: 2px; }
+
+    .result-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .authenticity-bar {
+      height: 8px;
+      background: var(--gray-200);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .authenticity-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.8s ease;
+    }
+
+    /* ─── Loading Overlay ───────────────────────────────────────────── */
+    .loading-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(15,23,42,0.75);
+      z-index: 1000;
+      align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      color: white;
+    }
+    .loading-overlay.show { display: flex; }
+
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top-color: var(--saffron);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-steps { text-align: center; }
+    .loading-steps .step-text { font-size: 14px; opacity: 0.9; }
+    .loading-steps .sub-text  { font-size: 12px; opacity: 0.6; margin-top: 4px; }
+
+    /* ─── Emergency Banner ──────────────────────────────────────────── */
+    .emergency-banner {
+      background: var(--red);
+      color: white;
+      text-align: center;
+      padding: 8px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .emergency-banner strong { font-weight: 700; }
+
+    /* ─── Footer ────────────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      margin-top: 40px;
+    }
+
+    /* ─── Helpline Numbers ──────────────────────────────────────────── */
+    .helplines {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .helpline-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      font-size: 13px;
+    }
+    .helpline-number { font-size: 16px; font-weight: 700; color: var(--navy); }
+    .helpline-label  { font-size: 10px; color: var(--gray-400); }
+
+    /* ─── Toast ─────────────────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      background: var(--navy);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 999;
+      max-width: 320px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.error { background: var(--red); }
+    .toast.success { background: var(--success); }
+
+    /* ─── DigiLocker Modal ──────────────────────────────────────────── */
+    .dl-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(10,18,40,0.72);
+      z-index: 2000;
+      align-items: center; justify-content: center;
+      padding: 16px;
+      backdrop-filter: blur(3px);
+    }
+    .dl-overlay.show { display: flex; }
+
+    .dl-popup {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+      overflow: hidden;
+      animation: dlSlideIn 0.28s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes dlSlideIn {
+      from { transform: translateY(30px) scale(0.96); opacity: 0; }
+      to   { transform: translateY(0) scale(1);      opacity: 1; }
+    }
+
+    .dl-tricolor {
+      height: 5px;
+      background: linear-gradient(to right, #FF9933 33%, white 33%, white 67%, #138808 67%);
+    }
+
+    .dl-header {
+      background: #0c2461;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dl-brand { display: flex; align-items: center; gap: 12px; }
+    .dl-brand-icon {
+      width: 40px; height: 40px;
+      background: white;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .dl-brand-text { color: white; }
+    .dl-brand-text strong { font-size: 16px; font-weight: 700; display: block; letter-spacing: -0.3px; }
+    .dl-brand-text span   { font-size: 10px; color: rgba(255,255,255,0.55); letter-spacing: 0.3px; }
+    .dl-header-close {
+      background: rgba(255,255,255,0.1);
+      border: none; color: rgba(255,255,255,0.7);
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .dl-header-close:hover { background: rgba(255,255,255,0.2); color: white; }
+
+    .dl-body { padding: 28px 24px; }
+    .dl-body-center { text-align: center; }
+
+    .dl-secure-row {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #f0fdf4; border: 1px solid #bbf7d0;
+      padding: 4px 12px; border-radius: 999px;
+      font-size: 11px; font-weight: 600; color: #15803d;
+      margin-bottom: 18px;
+    }
+
+    .dl-title {
+      font-size: 20px; font-weight: 700; color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .dl-desc {
+      font-size: 13px; color: #64748b; line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .dl-checks {
+      background: #f8fafc; border-radius: 10px;
+      padding: 14px 16px; margin-bottom: 22px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .dl-check-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: #374151;
+    }
+    .dl-check-dot {
+      width: 20px; height: 20px;
+      background: #dcfce7; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 11px; color: #16a34a; font-weight: 700;
+    }
+
+    .dl-verify-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #1565c0, #0c2461);
+      color: white; border: none;
+      padding: 14px 20px; border-radius: 10px;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: all 0.2s; margin-bottom: 10px;
+      box-shadow: 0 4px 14px rgba(21,101,192,0.35);
+    }
+    .dl-verify-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(21,101,192,0.45); }
+    .dl-verify-btn:disabled { background: #94a3b8; box-shadow: none; transform: none; cursor: not-allowed; }
+
+    .dl-skip-link {
+      background: none; border: none;
+      color: #94a3b8; font-size: 12px; font-family: inherit;
+      cursor: pointer; padding: 4px; width: 100%;
+      text-align: center; text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .dl-skip-link:hover { color: #64748b; }
+
+    .dl-powered {
+      font-size: 10px; color: #cbd5e1;
+      text-align: center; margin-top: 16px;
+    }
+
+    .dl-loading-body { text-align: center; padding: 40px 24px; }
+    .dl-spinner-lg {
+      width: 52px; height: 52px;
+      border: 4px solid rgba(21,101,192,0.15);
+      border-top-color: #1565c0;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+    .dl-loading-title { font-size: 16px; font-weight: 600; color: #0f172a; margin-bottom: 6px; }
+    .dl-loading-sub   { font-size: 13px; color: #94a3b8; }
+
+    .dl-steps-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; margin-top: 20px;
+    }
+    .dl-step-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #e2e8f0; transition: background 0.3s;
+    }
+    .dl-step-dot.active { background: #1565c0; }
+    .dl-step-dot.done   { background: #16a34a; }
+
+    .dl-success-body { text-align: center; padding: 32px 24px 28px; }
+    .dl-success-icon {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      border-radius: 50%; margin: 0 auto 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; color: white;
+      box-shadow: 0 8px 24px rgba(22,163,74,0.35);
+      animation: dlPop 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes dlPop {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+    .dl-success-title { font-size: 20px; font-weight: 700; color: #15803d; margin-bottom: 6px; }
+    .dl-success-name  { font-size: 16px; font-weight: 600; color: #0f172a; margin-bottom: 4px; }
+    .dl-success-sub   { font-size: 13px; color: #64748b; margin-bottom: 22px; line-height: 1.5; }
+    .dl-success-method {
+      display: inline-block;
+      background: #f0fdf4; border: 1px solid #bbf7d0;
+      color: #15803d; font-size: 11px; font-weight: 600;
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 20px;
+    }
+    .dl-continue-btn {
+      width: 100%; background: #16a34a; color: white;
+      border: none; padding: 13px 20px;
+      border-radius: 10px; font-size: 15px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.2s;
+    }
+    .dl-continue-btn:hover { background: #15803d; }
+  </style>
+</head>
+<body>
+
+  <!-- Tricolor Bar -->
+  <div class="tricolor-bar"></div>
+
+  <!-- Emergency Banner -->
+  <div class="emergency-banner">
+    <strong>EMERGENCY?</strong> Call <strong>112</strong> immediately. This portal is for non-emergency cybercrime reporting only.
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-brand">
+      <div class="header-logo">AJ</div>
+      <div class="header-text">
+        <h1>AutoJustice AI NEXUS</h1>
+        <p>Cyber Crime Reporting Portal — Powered by Artificial Intelligence</p>
+      </div>
+    </div>
+    <nav class="header-nav" style="display:flex;gap:10px;align-items:center;">
+      <a href="/track" style="border:1px solid rgba(255,153,51,0.5);color:var(--saffron)">📋 Track Case</a>
+      <a href="/login">Officer Login</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">Secure · Confidential · AI-Powered</div>
+    <h2>Report Cybercrime.<br>We Handle the Rest.</h2>
+    <p>Our AI instantly analyzes your evidence, classifies the threat, and auto-generates a legally structured Complaint Report — so you get justice faster.</p>
+
+    <div class="hero-features">
+      <div class="hero-feature">
+        <span class="icon">🔍</span>
+        <span>Auto OCR Evidence Scan</span>
+      </div>
+      <div class="hero-feature">
+        <span class="icon">🤖</span>
+        <span>AI Threat Triage</span>
+      </div>
+      <div class="hero-feature">
+        <span class="icon">📋</span>
+        <span>Auto Complaint Report Generation</span>
+      </div>
+      <div class="hero-feature">
+        <span class="icon">🔐</span>
+        <span>SHA-256 Chain of Custody</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Stats Ticker -->
+  <div style="background:rgba(21,101,192,0.08); border-top:1px solid rgba(21,101,192,0.12); border-bottom:1px solid rgba(21,101,192,0.12); padding:10px 0;">
+    <div style="max-width:900px; margin:0 auto; padding:0 16px; display:flex; gap:32px; justify-content:center; flex-wrap:wrap; align-items:center;">
+      <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--navy);">
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--success);display:inline-block;animation:pulse 2s infinite"></span>
+        <span>System Active</span>
+      </div>
+      <div style="font-size:13px; color:var(--gray-600);">
+        📁 <strong id="tickerTotal">—</strong> Reports Processed
+      </div>
+      <div style="font-size:13px; color:var(--gray-600);">
+        📄 <strong id="tickerFirs">—</strong> Complaint Reports Auto-Generated
+      </div>
+      <div style="font-size:13px; color:var(--gray-600);">
+        📊 <strong id="tickerToday">—</strong> Reports Today
+      </div>
+      <div style="font-size:13px; color:var(--gray-600);">
+        🛡️ <strong id="tickerFake">—</strong> Fake Reports Blocked
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container" id="formSection">
+
+    <!-- DigiLocker Verification Status Strip -->
+    <div id="dlStatusStrip" style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:22px;">🔐</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#92400e;">Identity Not Yet Verified</div>
+          <div style="font-size:12px;color:#b45309;">Verify via DigiLocker for a legally binding complaint trail</div>
+        </div>
+      </div>
+      <button onclick="openDLModal()" style="background:#1565c0;color:white;border:none;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;">Verify Now</button>
+    </div>
+    <!-- Verified strip (hidden until verified) -->
+    <div id="dlVerifiedStrip" style="display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 18px;margin-bottom:20px;display:none;align-items:center;gap:12px;">
+      <div style="width:36px;height:36px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;color:white;font-weight:700;">✓</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#15803d;">Identity Verified — DigiLocker</div>
+        <div style="font-size:12px;color:#166534;" id="dlVerifiedNameStrip">—</div>
+      </div>
+    </div>
+
+    <!-- Helplines -->
+    <div class="helplines">
+      <div class="helpline-item">
+        <div>
+          <div class="helpline-number">1930</div>
+          <div class="helpline-label">Cyber Fraud Helpline</div>
+        </div>
+      </div>
+      <div class="helpline-item">
+        <div>
+          <div class="helpline-number">112</div>
+          <div class="helpline-label">Emergency Services</div>
+        </div>
+      </div>
+      <div class="helpline-item">
+        <div>
+          <div class="helpline-number">100</div>
+          <div class="helpline-label">Police Emergency</div>
+        </div>
+      </div>
+      <div class="helpline-item">
+        <div>
+          <div class="helpline-number">181</div>
+          <div class="helpline-label">Women Helpline</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step Progress -->
+    <div class="step-progress">
+      <div class="step active" id="step-1">
+        <div class="step-circle">1</div>
+        <div class="step-label">Your Details</div>
+      </div>
+      <div class="step-line" id="line-1"></div>
+      <div class="step" id="step-2">
+        <div class="step-circle">2</div>
+        <div class="step-label">Describe Incident</div>
+      </div>
+      <div class="step-line" id="line-2"></div>
+      <div class="step" id="step-3">
+        <div class="step-circle">3</div>
+        <div class="step-label">Upload Evidence</div>
+      </div>
+      <div class="step-line" id="line-3"></div>
+      <div class="step" id="step-4">
+        <div class="step-circle">4</div>
+        <div class="step-label">Review & Submit</div>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <form id="reportForm" enctype="multipart/form-data">
+
+      <!-- STEP 1: Your Details -->
+      <div class="form-step" id="formStep1">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">👤</div>
+            <div class="card-title">
+              <h3>Your Details</h3>
+              <p>This information is kept confidential and used only for investigation purposes.</p>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <p>🔒 Your personal information is protected under the <strong>DPDP Act 2023</strong>. It will only be shared with investigating officers.</p>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Full Name <span class="required">*</span></label>
+              <input type="text" name="complainant_name" id="complainant_name" placeholder="Enter your full name" required />
+            </div>
+            <div class="form-group">
+              <label>Mobile Number</label>
+              <input type="tel" name="complainant_phone" id="complainant_phone" placeholder="10-digit mobile number" maxlength="10" />
+              <span class="input-hint">Officer may call you for follow-up</span>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="complainant_email" id="complainant_email" placeholder="your@email.com" />
+            </div>
+            <div class="form-group">
+              <label>Your Address</label>
+              <input type="text" name="complainant_address" id="complainant_address" placeholder="City, State" />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-primary" onclick="goToStep(2)">Next: Describe Incident →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Incident Description -->
+      <div class="form-step" id="formStep2" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">📝</div>
+            <div class="card-title">
+              <h3>Describe the Incident</h3>
+              <p>The more details you provide, the better our AI can classify and prioritize your case.</p>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <p>💡 <strong>Tip:</strong> Include details like: What happened? When? Who was involved? What did you lose? What platforms/apps were used?</p>
+          </div>
+
+          <div class="form-grid single">
+            <div class="form-group">
+              <label>What Happened? <span class="required">*</span></label>
+              <textarea
+                name="incident_description"
+                id="incident_description"
+                placeholder="Describe the cybercrime in detail...
+
+Example: On 15th April 2024, I received a call from someone claiming to be from my bank. They asked for my OTP saying my account would be blocked. I shared the OTP and Rs. 45,000 was immediately debited from my account via UPI. The caller's number was 9876543210."
+                required
+                minlength="20"
+              ></textarea>
+              <span class="input-hint" id="desc-counter">Minimum 20 characters required</span>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>When did it happen?</label>
+              <input type="text" name="incident_date" id="incident_date" placeholder="e.g., 15 April 2024, 3:00 PM" />
+            </div>
+            <div class="form-group">
+              <label>Where did it happen?</label>
+              <input type="text" name="incident_location" id="incident_location" placeholder="e.g., Mumbai, Maharashtra (or online)" />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+            <button type="button" class="btn btn-primary" onclick="goToStep(3)">Next: Upload Evidence →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: Upload Evidence -->
+      <div class="form-step" id="formStep3" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">📁</div>
+            <div class="card-title">
+              <h3>Upload Evidence (Optional)</h3>
+              <p>Screenshots, messages, or documents related to the incident.</p>
+            </div>
+          </div>
+
+          <div class="warning-box">
+            <p>⚠️ <strong>Do not upload</strong> any content that may cause further harm. All files are scanned and SHA-256 hashed for legal evidence preservation.</p>
+          </div>
+
+          <div class="dropzone" id="dropzone">
+            <input type="file" name="evidence_files" id="evidence_files" multiple accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff,.pdf,.txt" />
+            <div class="dropzone-icon">📸</div>
+            <h4>Drag & Drop Files Here</h4>
+            <p>Or click to browse — JPG, PNG, PDF, TXT (Max 25MB each)</p>
+          </div>
+          <div class="file-list" id="fileList"></div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
+            <button type="button" class="btn btn-primary" onclick="goToStep(4)">Next: Review →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: Review & Submit -->
+      <div class="form-step" id="formStep4" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">✅</div>
+            <div class="card-title">
+              <h3>Review Your Report</h3>
+              <p>Please verify all details before submitting.</p>
+            </div>
+          </div>
+
+          <div id="reviewContent"></div>
+
+          <div class="warning-box">
+            <p>⚠️ <strong>Legal Notice:</strong> Filing a false police complaint is a criminal offence under BNS Section 229. By submitting, you confirm that all information provided is true to the best of your knowledge. Our AI system has been trained to detect fabricated reports.</p>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              🚨 Submit Report to Police AI
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- Result Section -->
+    <div id="result-section">
+      <div class="result-card">
+        <div class="result-header" id="resultHeader">
+          <div class="result-badge" id="resultBadge">Submitted</div>
+          <div class="result-case-number" id="resultCaseNumber">Processing...</div>
+          <p id="resultStatusMsg">Your report has been submitted to the AI triage system.</p>
+        </div>
+        <div class="result-body">
+          <div class="result-grid">
+            <div class="result-field">
+              <label>Risk Level</label>
+              <div class="value" id="resultRiskLevel">—</div>
+            </div>
+            <div class="result-field">
+              <label>Crime Category</label>
+              <div class="value" id="resultCrimeCategory">—</div>
+            </div>
+            <div class="result-field">
+              <label>Complaint Report Status</label>
+              <div class="value" id="resultFirStatus">—</div>
+            </div>
+            <div class="result-field">
+              <label>Authenticity Check</label>
+              <div class="value" id="resultAuthenticity">—</div>
+              <div class="authenticity-bar"><div class="authenticity-fill" id="authBar" style="width:0%"></div></div>
+            </div>
+          </div>
+
+          <div style="background: var(--gray-50); padding: 16px; border-radius: 8px; margin: 16px 0;">
+            <p style="font-size: 12px; color: var(--gray-400); margin-bottom: 4px; font-weight: 600;">AI CASE SUMMARY</p>
+            <p style="font-size: 14px; line-height: 1.6;" id="resultAiSummary">—</p>
+          </div>
+
+          <div style="background: var(--gray-50); padding: 16px; border-radius: 8px; margin: 16px 0;">
+            <p style="font-size: 12px; color: var(--gray-400); margin-bottom: 8px; font-weight: 600;">CHAIN OF CUSTODY HASH (SHA-256)</p>
+            <p style="font-size: 11px; font-family: monospace; color: var(--gray-600); word-break: break-all;" id="resultHash">—</p>
+          </div>
+
+          <div class="result-actions">
+            <button class="btn btn-primary" id="downloadFirBtn" style="display:none" onclick="downloadComplaintReport()">
+              📄 Download Complaint Report PDF
+            </button>
+            <button class="btn btn-secondary" onclick="submitAnother()">
+              Submit Another Report
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DigiLocker Modal Popup -->
+  <div class="dl-overlay" id="dlModal">
+    <div class="dl-popup">
+      <!-- Tricolor stripe -->
+      <div class="dl-tricolor"></div>
+
+      <!-- Header -->
+      <div class="dl-header">
+        <div class="dl-brand">
+          <div class="dl-brand-icon">🏛️</div>
+          <div class="dl-brand-text">
+            <strong>DigiLocker</strong>
+            <span>Ministry of Electronics &amp; IT · Govt. of India</span>
+          </div>
+        </div>
+        <button class="dl-header-close" onclick="closeDLModal(false)" title="Skip verification">✕</button>
+      </div>
+
+      <!-- State 1: Default (Verify button) -->
+      <div class="dl-body dl-body-center" id="dlStateDefault">
+        <div class="dl-secure-row">
+          <span>🔒</span> Secure · Aadhaar-Linked · OAuth 2.0
+        </div>
+        <h3 class="dl-title">Verify Your Identity</h3>
+        <p class="dl-desc">To file a legally valid cybercrime complaint, we need to verify your identity via DigiLocker — India's official document wallet.</p>
+        <div class="dl-checks">
+          <div class="dl-check-item"><div class="dl-check-dot">✓</div><span>Prevents malicious and false complaints</span></div>
+          <div class="dl-check-item"><div class="dl-check-dot">✓</div><span>Auto-fills your Aadhaar-registered name</span></div>
+          <div class="dl-check-item"><div class="dl-check-dot">✓</div><span>Legally binding identity trail for courts</span></div>
+          <div class="dl-check-item"><div class="dl-check-dot">✓</div><span>Protected under DPDP Act 2023</span></div>
+        </div>
+        <button class="dl-verify-btn" id="dlVerifyBtn" onclick="startDigiLocker()">
+          <span style="font-size:20px">🏛️</span>
+          <span>Continue with DigiLocker</span>
+        </button>
+        <button class="dl-skip-link" onclick="closeDLModal(false)">Skip — proceed without verification</button>
+        <p class="dl-powered">Powered by DigiLocker · MeitY · Government of India</p>
+        <!-- Demo mode inline form — shown instead of browser prompt() -->
+        <div id="dlDemoForm" style="display:none;margin-top:16px;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 16px;text-align:left;">
+          <p style="margin:0 0 4px;font-size:11px;color:#9a3412;font-weight:600;">⚙ Demo Mode — DigiLocker Not Configured</p>
+          <p style="margin:0 0 10px;font-size:11px;color:#78350f;">Enter your name as it would appear on Aadhaar:<br><span style="opacity:.7">(In production this is fetched securely from DigiLocker)</span></p>
+          <input id="dlDemoNameInput" type="text" placeholder="e.g. Rahul Kumar Sharma"
+            style="width:100%;box-sizing:border-box;padding:9px 12px;border:1.5px solid #fed7aa;border-radius:7px;font-size:13px;outline:none;background:#fffbf5;"
+            onkeydown="if(event.key==='Enter')submitDemoName()" />
+          <div style="display:flex;gap:8px;margin-top:10px;">
+            <button onclick="submitDemoName()"
+              style="flex:1;padding:9px;background:#1a2a4a;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;">
+              Verify with Demo DigiLocker
+            </button>
+            <button onclick="_cancelDemoForm()"
+              style="padding:9px 14px;background:none;border:1.5px solid #fed7aa;border-radius:7px;font-size:13px;color:#9a3412;cursor:pointer;">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- State 2: Loading -->
+      <div class="dl-loading-body" id="dlStateLoading" style="display:none">
+        <div class="dl-spinner-lg"></div>
+        <div class="dl-loading-title" id="dlLoadingTitle">Connecting to DigiLocker...</div>
+        <div class="dl-loading-sub" id="dlLoadingSub">Please wait while we verify your identity</div>
+        <div class="dl-steps-row">
+          <div class="dl-step-dot done"   id="dlDot1"></div>
+          <div class="dl-step-dot active" id="dlDot2"></div>
+          <div class="dl-step-dot"        id="dlDot3"></div>
+        </div>
+      </div>
+
+      <!-- State 3: Success -->
+      <div class="dl-success-body" id="dlStateSuccess" style="display:none">
+        <div class="dl-success-icon">✓</div>
+        <div class="dl-success-title">Identity Verified!</div>
+        <div class="dl-success-name" id="dlSuccessName">—</div>
+        <div class="dl-success-method" id="dlSuccessMethod">Aadhaar-Linked</div>
+        <div class="dl-success-sub">Your identity has been verified via DigiLocker.<br>Your complaint will carry a verified identity trail.</div>
+        <button class="dl-continue-btn" onclick="closeDLModal(true)">Continue to Report →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-steps">
+      <div class="step-text" id="loadingText">Uploading evidence files...</div>
+      <div class="sub-text">AutoJustice AI is analyzing your report</div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Footer -->
+  <footer>
+    <p>AutoJustice AI NEXUS v1.0 · Section 65B Indian Evidence Act Compliant · DPDP Act 2023 Compliant · BNS 2023</p>
+    <p style="margin-top: 6px;">For technical support: <strong>cybercrime.gov.in</strong> · This portal is for use by Indian citizens only.</p>
+  </footer>
+
+  <script src="/static/js/citizen.js"></script>
+</body>
+</html>

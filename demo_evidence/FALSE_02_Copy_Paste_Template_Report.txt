@@ -1,0 +1,29 @@
+COMPLAINT REPORT
+================
+To,
+The Superintendent of Police,
+[City Name]
+
+Subject: Complaint against [Name of Accused Person]
+
+Respected Sir/Madam,
+
+I am writing to inform you about the incident that happened to me on [DATE].
+The person named [INSERT NAME HERE] did [CRIME TYPE] to me at [LOCATION].
+
+I have suffered a loss of Rs. [AMOUNT] due to this incident.
+
+Please take strict action against the above-mentioned person.
+
+Kindly look into this matter and do the needful as early as possible.
+
+Thanking You,
+[Your Name]
+[Your Address]
+[Your Phone Number]
+
+---
+NOTE FOR DEMO: This is a copy-pasted template with placeholder text.
+AI should detect: "INSERT NAME HERE", "[DATE]", "[AMOUNT]" etc.
+Expected: FAKE RECOMMENDATION = REJECT
+Authenticity: ~10-15%

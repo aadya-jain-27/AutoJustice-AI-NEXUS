@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="1200" viewBox="0 0 900 1200" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="1200" fill="white"/>
+
+  <!-- Title -->
+  <rect x="20" y="15" width="860" height="50" rx="4" fill="#111"/>
+  <text x="450" y="46" text-anchor="middle" fill="white" font-size="18" font-weight="bold">AutoJustice AI NEXUS v2.0 — System Architecture</text>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- LAYER 1: USERS -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <text x="30" y="88" font-size="11" fill="#555" font-weight="bold">LAYER 1 — USERS</text>
+
+  <!-- Citizen box -->
+  <rect x="80" y="96" width="160" height="60" rx="6" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="160" y="121" text-anchor="middle" font-size="13" font-weight="bold">👤 Citizen</text>
+  <text x="160" y="139" text-anchor="middle" font-size="10" fill="#444">Submits complaint</text>
+  <text x="160" y="152" text-anchor="middle" font-size="10" fill="#444">+ evidence files</text>
+
+  <!-- Police Officer box -->
+  <rect x="340" y="96" width="160" height="60" rx="6" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="420" y="121" text-anchor="middle" font-size="13" font-weight="bold">👮 Officer</text>
+  <text x="420" y="139" text-anchor="middle" font-size="10" fill="#444">Reviews cases, assigns,</text>
+  <text x="420" y="152" text-anchor="middle" font-size="10" fill="#444">adds notes, exports CSV</text>
+
+  <!-- Admin box -->
+  <rect x="600" y="96" width="160" height="60" rx="6" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="680" y="121" text-anchor="middle" font-size="13" font-weight="bold">🔐 Admin</text>
+  <text x="680" y="139" text-anchor="middle" font-size="10" fill="#444">Creates officers,</text>
+  <text x="680" y="152" text-anchor="middle" font-size="10" fill="#444">manages access</text>
+
+  <!-- Arrows down to NGINX -->
+  <line x1="160" y1="156" x2="160" y2="192" stroke="#111" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="420" y1="156" x2="420" y2="192" stroke="#111" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="680" y1="156" x2="680" y2="192" stroke="#111" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- LAYER 2: NGINX -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <text x="30" y="208" font-size="11" fill="#555" font-weight="bold">LAYER 2 — NGINX REVERSE PROXY  (Port 80)</text>
+  <rect x="60" y="216" width="760" height="56" rx="6" fill="#111"/>
+  <text x="270" y="239" fill="white" font-size="12" font-weight="bold">NGINX  —  Rate Limiting  |  Security Headers  |  SSL Termination  |  Gzip</text>
+  <text x="200" y="258" fill="#ccc" font-size="10">submit: 5 req/min   login: 10 req/min   api: 60 req/min   blocks .env/.db access</text>
+
+  <!-- Arrow down to FastAPI -->
+  <line x1="450" y1="272" x2="450" y2="306" stroke="#111" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- LAYER 3: FASTAPI -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <text x="30" y="322" font-size="11" fill="#555" font-weight="bold">LAYER 3 — FASTAPI APPLICATION  (Port 8000)</text>
+
+  <!-- Rate Limiter Middleware -->
+  <rect x="60" y="330" width="760" height="34" rx="4" fill="#333"/>
+  <text x="450" y="352" text-anchor="middle" fill="white" font-size="11">Rate Limiter Middleware  —  Sliding Window  |  Per-IP  |  In-Memory  |  Retry-After Headers</text>
+
+  <!-- 4 Routers -->
+  <rect x="60" y="374" width="175" height="64" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="147" y="394" text-anchor="middle" font-size="11" font-weight="bold">/api/reports</text>
+  <text x="147" y="410" text-anchor="middle" font-size="9" fill="#444">submit · list · track</text>
+  <text x="147" y="423" text-anchor="middle" font-size="9" fill="#444">download FIR · verify</text>
+  <text x="147" y="436" text-anchor="middle" font-size="9" fill="#444">integrity · force FIR</text>
+
+  <rect x="253" y="374" width="175" height="64" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="340" y="394" text-anchor="middle" font-size="11" font-weight="bold">/api/auth</text>
+  <text x="340" y="410" text-anchor="middle" font-size="9" fill="#444">login · me · officers</text>
+  <text x="340" y="423" text-anchor="middle" font-size="9" fill="#444">create · deactivate</text>
+  <text x="340" y="436" text-anchor="middle" font-size="9" fill="#444">JWT Bearer tokens</text>
+
+  <rect x="446" y="374" width="175" height="64" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="533" y="394" text-anchor="middle" font-size="11" font-weight="bold">/api/cases</text>
+  <text x="533" y="410" text-anchor="middle" font-size="9" fill="#444">assign · status · notes</text>
+  <text x="533" y="423" text-anchor="middle" font-size="9" fill="#444">search · export CSV</text>
+  <text x="533" y="436" text-anchor="middle" font-size="9" fill="#444">flag-fake · analytics</text>
+
+  <rect x="639" y="374" width="180" height="64" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="729" y="394" text-anchor="middle" font-size="11" font-weight="bold">/api/dashboard</text>
+  <text x="729" y="410" text-anchor="middle" font-size="9" fill="#444">stats · forensics</text>
+  <text x="729" y="423" text-anchor="middle" font-size="9" fill="#444">reporter trust</text>
+  <text x="729" y="436" text-anchor="middle" font-size="9" fill="#444">system health</text>
+
+  <!-- Arrows from routers down to AI Pipeline -->
+  <line x1="147" y1="438" x2="147" y2="475" stroke="#111" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="340" y1="438" x2="340" y2="475" stroke="#111" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="533" y1="438" x2="533" y2="475" stroke="#111" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="729" y1="438" x2="729" y2="475" stroke="#111" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- LAYER 4: AI PIPELINE -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <text x="30" y="492" font-size="11" fill="#555" font-weight="bold">LAYER 4 — AI PIPELINE  (11-Step Automated Report Processing)</text>
+
+  <!-- Pipeline box -->
+  <rect x="60" y="500" width="760" height="298" rx="6" fill="white" stroke="#111" stroke-width="2"/>
+
+  <!-- Step 1 -->
+  <rect x="80" y="514" width="340" height="40" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+  <text x="100" y="530" font-size="10" font-weight="bold">Step 1</text>
+  <text x="100" y="547" font-size="10" fill="#333">Reporter Trust Check  —  is submitter blocked? frequency abuse?</text>
+
+  <!-- Arrow -->
+  <line x1="250" y1="554" x2="250" y2="566" stroke="#555" stroke-width="1.2" marker-end="url(#arrowSm)"/>
+
+  <!-- Step 2 -->
+  <rect x="80" y="566" width="340" height="40" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+  <text x="100" y="582" font-size="10" font-weight="bold">Step 2</text>
+  <text x="100" y="599" font-size="10" fill="#333">OCR Extraction  —  Tesseract (Hindi + English)  |  PDF 3-layer fallback</text>
+
+  <line x1="250" y1="606" x2="250" y2="618" stroke="#555" stroke-width="1.2" marker-end="url(#arrowSm)"/>
+
+  <!-- Step 3 -->
+  <rect x="80" y="618" width="340" height="40" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+  <text x="100" y="634" font-size="10" font-weight="bold">Step 3</text>
+  <text x="100" y="651" font-size="10" fill="#333">SHA-256 Hash  —  Section 65B chain of custody per file</text>
+
+  <line x1="250" y1="658" x2="250" y2="670" stroke="#555" stroke-width="1.2" marker-end="url(#arrowSm)"/>
+
+  <!-- Step 4 -->
+  <rect x="80" y="670" width="340" height="40" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+  <text x="100" y="686" font-size="10" font-weight="bold">Step 4</text>
+  <text x="100" y="703" font-size="10" fill="#333">Image Forensics  —  ELA · EXIF · Noise Analysis · Screenshot Detection</text>
+
+  <line x1="250" y1="710" x2="250" y2="722" stroke="#555" stroke-width="1.2" marker-end="url(#arrowSm)"/>
+
+  <!-- Step 5 -->
+  <rect x="80" y="722" width="340" height="40" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+  <text x="100" y="738" font-size="10" font-weight="bold">Step 5</text>
+  <text x="100" y="755" font-size="10" fill="#333">Fake Detection  —  6-layer: keyword · Gemini NLP · duplicate · entity · freq</text>
+
+  <line x1="250" y1="762" x2="250" y2="774" stroke="#555" stroke-width="1.2" marker-end="url(#arrowSm)"/>
+
+  <!-- Step 6 -->
+  <rect x="80" y="774" width="340" height="40" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+  <text x="100" y="790" font-size="10" font-weight="bold">Step 6-7</text>
+  <text x="100" y="807" font-size="10" fill="#333">AI Triage (Gemini 1.5 Pro)  —  risk · category · BNS sections · summary</text>
+
+  <!-- Continuation arrow right side -->
+  <line x1="420" y1="610" x2="435" y2="610" stroke="#555" stroke-width="1.2" marker-end="url(#arrowSm)"/>
+
+  <!-- Right column steps -->
+  <!-- Step 8 -->
+  <rect x="440" y="514" width="356" height="40" rx="4" fill="#111" stroke="#111" stroke-width="1"/>
+  <text x="460" y="530" font-size="10" font-weight="bold" fill="white">Step 8</text>
+  <text x="460" y="547" font-size="10" fill="#ddd">Trust Score Updated  —  history recorded, score recalculated</text>
+
+  <line x1="618" y1="554" x2="618" y2="566" stroke="#555" stroke-width="1.2" marker-end="url(#arrowSm)"/>
+
+  <!-- Step 9 -->
+  <rect x="440" y="566" width="356" height="40" rx="4" fill="#111" stroke="#111" stroke-width="1"/>
+  <text x="460" y="582" font-size="10" font-weight="bold" fill="white">Step 9</text>
+  <text x="460" y="599" font-size="10" fill="#ddd">Auto FIR Generation  —  ReportLab PDF  |  SHA-256 hash on FIR</text>
+
+  <line x1="618" y1="606" x2="618" y2="618" stroke="#555" stroke-width="1.2" marker-end="url(#arrowSm)"/>
+
+  <!-- Step 10 -->
+  <rect x="440" y="618" width="356" height="40" rx="4" fill="#111" stroke="#111" stroke-width="1"/>
+  <text x="460" y="634" font-size="10" font-weight="bold" fill="white">Step 10</text>
+  <text x="460" y="651" font-size="10" fill="#ddd">Status Set  —  FIR_GENERATED · TRIAGED · REJECTED</text>
+
+  <line x1="618" y1="658" x2="618" y2="670" stroke="#555" stroke-width="1.2" marker-end="url(#arrowSm)"/>
+
+  <!-- Step 11 -->
+  <rect x="440" y="670" width="356" height="40" rx="4" fill="#111" stroke="#111" stroke-width="1"/>
+  <text x="460" y="686" font-size="10" font-weight="bold" fill="white">Step 11</text>
+  <text x="460" y="703" font-size="10" fill="#ddd">Audit Log  —  IP · actor · action · timestamp → immutable record</text>
+
+  <!-- Decision diamond for GENUINE/REJECT -->
+  <polygon points="618,730 668,755 618,780 568,755" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="618" y="750" text-anchor="middle" font-size="9" font-weight="bold">GENUINE</text>
+  <text x="618" y="762" text-anchor="middle" font-size="9" font-weight="bold">or REJECT?</text>
+
+  <text x="700" y="752" font-size="9" fill="#333">→ GENUINE: FIR auto-filed</text>
+  <text x="700" y="766" font-size="9" fill="#333">→ REVIEW: Officer checks</text>
+  <text x="700" y="780" font-size="9" fill="#333">→ REJECT: Case closed</text>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- LAYER 5: SERVICES -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <text x="30" y="826" font-size="11" fill="#555" font-weight="bold">LAYER 5 — EXTERNAL SERVICES &amp; STORAGE</text>
+
+  <!-- Gemini -->
+  <rect x="60" y="834" width="160" height="56" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="140" y="857" text-anchor="middle" font-size="12" font-weight="bold">Gemini 1.5 Pro</text>
+  <text x="140" y="873" text-anchor="middle" font-size="9" fill="#444">Google AI — semantic</text>
+  <text x="140" y="886" text-anchor="middle" font-size="9" fill="#444">triage + fake NLP</text>
+
+  <!-- Tesseract -->
+  <rect x="240" y="834" width="160" height="56" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="320" y="857" text-anchor="middle" font-size="12" font-weight="bold">Tesseract OCR</text>
+  <text x="320" y="873" text-anchor="middle" font-size="9" fill="#444">Hindi + English text</text>
+  <text x="320" y="886" text-anchor="middle" font-size="9" fill="#444">extraction from images</text>
+
+  <!-- SQLite -->
+  <rect x="420" y="834" width="160" height="56" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="500" y="857" text-anchor="middle" font-size="12" font-weight="bold">SQLite / PostgreSQL</text>
+  <text x="500" y="873" text-anchor="middle" font-size="9" fill="#444">Reports · Officers</text>
+  <text x="500" y="886" text-anchor="middle" font-size="9" fill="#444">Profiles · Audit Logs</text>
+
+  <!-- File Storage -->
+  <rect x="600" y="834" width="160" height="56" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="680" y="857" text-anchor="middle" font-size="12" font-weight="bold">File Storage</text>
+  <text x="680" y="873" text-anchor="middle" font-size="9" fill="#444">uploads/ — evidence files</text>
+  <text x="680" y="886" text-anchor="middle" font-size="9" fill="#444">firs/ — generated PDFs</text>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- LAYER 6: FRONTEND -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <text x="30" y="918" font-size="11" fill="#555" font-weight="bold">LAYER 6 — FRONTEND PAGES  (Jinja2 + Vanilla JS)</text>
+
+  <rect x="60" y="926" width="180" height="56" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="150" y="949" text-anchor="middle" font-size="11" font-weight="bold">Citizen Portal</text>
+  <text x="150" y="965" text-anchor="middle" font-size="9" fill="#444">localhost:8000/</text>
+  <text x="150" y="978" text-anchor="middle" font-size="9" fill="#444">Submit complaint + files</text>
+
+  <rect x="258" y="926" width="180" height="56" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="348" y="949" text-anchor="middle" font-size="11" font-weight="bold">Case Tracking</text>
+  <text x="348" y="965" text-anchor="middle" font-size="9" fill="#444">localhost:8000/track</text>
+  <text x="348" y="978" text-anchor="middle" font-size="9" fill="#444">Public status lookup</text>
+
+  <rect x="456" y="926" width="180" height="56" rx="5" fill="white" stroke="#111" stroke-width="2"/>
+  <text x="546" y="949" text-anchor="middle" font-size="11" font-weight="bold">Officer Login</text>
+  <text x="546" y="965" text-anchor="middle" font-size="9" fill="#444">localhost:8000/login</text>
+  <text x="546" y="978" text-anchor="middle" font-size="9" fill="#444">JWT auth gate</text>
+
+  <rect x="654" y="926" width="186" height="56" rx="5" fill="#111"/>
+  <text x="747" y="949" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Police Dashboard</text>
+  <text x="747" y="965" text-anchor="middle" font-size="9" fill="#ccc">localhost:8000/dashboard</text>
+  <text x="747" y="978" text-anchor="middle" font-size="9" fill="#ccc">Full command centre</text>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- LAYER 7: COMPLIANCE FOOTER -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <text x="30" y="1014" font-size="11" fill="#555" font-weight="bold">LEGAL &amp; COMPLIANCE LAYER</text>
+
+  <rect x="60" y="1022" width="760" height="44" rx="5" fill="#f0f0f0" stroke="#999" stroke-width="1"/>
+  <text x="450" y="1040" text-anchor="middle" font-size="10" font-weight="bold">Section 65B Evidence Act  |  BNS 2023 (31 crime types)  |  IT Act 2000  |  DPDP Act 2023</text>
+  <text x="450" y="1058" text-anchor="middle" font-size="10" fill="#444">SHA-256 chain of custody  ·  Immutable audit log  ·  PII handling controls  ·  Auto legal section mapping</text>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- FLOW LEGEND -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <rect x="60" y="1084" width="760" height="98" rx="5" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="80" y="1102" font-size="11" font-weight="bold" fill="#333">HOW IT FLOWS — PLAIN ENGLISH</text>
+
+  <text x="80" y="1120" font-size="10" fill="#444">1. Citizen fills form on portal  →  hits Submit</text>
+  <text x="80" y="1134" font-size="10" fill="#444">2. NGINX checks rate limit  →  passes request to FastAPI</text>
+  <text x="80" y="1148" font-size="10" fill="#444">3. FastAPI runs 11-step AI pipeline: reads files, detects fakes, scores risk, maps BNS sections, creates FIR PDF</text>
+  <text x="80" y="1162" font-size="10" fill="#444">4. Officer logs in (JWT)  →  Dashboard shows all cases  →  Officer assigns, updates status, exports CSV</text>
+  <text x="80" y="1176" font-size="10" fill="#444">5. Citizen tracks their case at /track  →  sees status timeline + can download FIR when ready</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#111"/>
+    </marker>
+    <marker id="arrowSm" markerWidth="6" markerHeight="6" refX="5" refY="2.5" orient="auto">
+      <path d="M0,0 L0,5 L6,2.5 z" fill="#555"/>
+    </marker>
+  </defs>
+
+</svg>
