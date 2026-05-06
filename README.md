@@ -32,16 +32,3 @@ Complaint Generation ( PDF)
      ↓
 Police Dashboard Alert
 ```
-
----
-
-## Compliance Framework
-
-| Regulation | Implementation |
-|-----------|----------------|
-| Section 65B (Indian Evidence Act) | SHA-256 hash on every file + FIR |
-| DPDP Act 2023 | PII fields isolated, no third-party sharing |
-| BNS 2023 | Auto-mapped crime sections in FIR |
-| IT Act 2000 | Cyber offence classification |
-
----
