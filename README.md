@@ -1,10 +1,6 @@
 # AutoJustice AI NEXUS
 ### AI-Driven Digital Forensics & Automated Threat Triage Platform
 ```
-
-
-## AI Pipeline Flow
-
 ```
 Citizen Upload
      ↓
